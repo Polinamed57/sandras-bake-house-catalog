@@ -1,0 +1,5 @@
+# Footlight MT Light is licensed by Monotype and can't be redistributed
+fonts/*.ttf
+fonts/*.otf
+
+.DS_Store

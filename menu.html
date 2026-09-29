@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sandra's Bake House · Wholesale Menu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  /* Sandra's cookie-name font. It only ships in Light, so the weight range stops Chrome from faking a bold. */
+  @font-face {
+    font-family: "Footlight";
+    src: url("fonts/FootlightMTLight.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+  }
+
+  @page { size: 8.5in 11in; margin: 0; }
+
+  :root {
+    --cocoa: #3a2217;
+    --cream: #fbf5ee;
+    --blush: #f6dbe1;
+    --rose: #c2577a;
+    --name-font: "Footlight", "Cormorant Garamond", serif;
+    --body-font: "Poppins", sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #d9d2cc; }
+  body { font-variant-numeric: lining-nums; font-family: var(--body-font); color: var(--cocoa); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  .page {
+    width: 8.5in; height: 11in;
+    position: relative; overflow: hidden;
+    page-break-after: always; break-after: page;
+    padding: 0.55in 0.6in;
+    display: flex; flex-direction: column;
+  }
+
+  .topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
+  }
+
+  .footer {
+    margin-top: auto;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 10px; letter-spacing: 0.04em;
+    padding-top: 14px; border-top: 1px solid currentColor;
+    opacity: 0.85;
+  }
+  .footer a { color: inherit; text-decoration: none; }
+
+  /* ---------- Cover ---------- */
+  .cover { background: var(--blush); }
+  .cover .topbar { color: var(--rose); }
+  .logo-mark { width: 96px; height: 96px; color: var(--cocoa); text-transform: none; letter-spacing: 0; }
+
+  .cover-title {
+    font-family: var(--name-font); font-weight: 600;
+    font-size: 96px; line-height: 0.9; letter-spacing: -0.01em;
+    margin-top: 34px;
+  }
+  .cover-title span { display: block; color: var(--rose); }
+
+  .cover-tagline {
+    font-size: 14.5px; line-height: 1.6; font-weight: 300;
+    max-width: 3.6in; margin-top: 22px;
+  }
+
+  .cover-body { display: flex; gap: 0.35in; margin-top: 30px; flex: 1; min-height: 0; margin-bottom: 26px; }
+  .cover-facts { width: 2.55in; display: flex; flex-direction: column; justify-content: flex-end; gap: 16px; }
+  .fact { border-top: 1px solid rgba(58, 34, 23, 0.25); padding-top: 12px; }
+  .fact-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); font-weight: 600; }
+  .fact-value { font-family: var(--name-font); font-size: 24px; font-weight: 600; margin-top: 3px; line-height: 1.1; }
+
+  .cover-photo {
+    flex: 1; border-radius: 180px 180px 24px 24px; overflow: hidden;
+  }
+  .cover-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 88%; display: block; }
+
+  /* ---------- Flavour page ---------- */
+  .flavour { background: var(--bg); color: var(--ink); }
+  .flavour .topbar { color: var(--accent); }
+
+  .hero { position: relative; margin-top: 22px; height: 5.15in; }
+  .hero-photo { width: 100%; height: 100%; border-radius: 26px; overflow: hidden; }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: var(--focus, 50% 50%); display: block; }
+
+  .price-badge {
+    position: absolute; right: -14px; bottom: -34px;
+    width: 128px; height: 128px; border-radius: 50%;
+    background: var(--badge); color: var(--badge-ink);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transform: rotate(-9deg);
+    border: 2px dashed currentColor;
+    outline: 6px solid var(--badge); outline-offset: -1px;
+  }
+  .price-badge .amount { font-family: var(--name-font); font-size: 40px; font-weight: 600; line-height: 1; }
+  .price-badge .unit { font-size: 8.5px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600; margin-top: 4px; }
+
+  .flavour-name {
+    font-family: var(--name-font); font-weight: 600;
+    font-size: 64px; line-height: 1; color: var(--accent);
+    margin-top: 34px;
+  }
+  .flavour-tagline { font-size: 14px; font-weight: 300; font-style: italic; margin-top: 10px; max-width: 5.2in; line-height: 1.55; }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 24px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .stat { padding: 13px 0 12px; }
+  .stat + .stat { border-left: 1px solid var(--rule); padding-left: 18px; }
+  .stat-label { font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; color: var(--accent); }
+  .stat-value { font-size: 15px; font-weight: 500; margin-top: 4px; }
+  .stat-value small { font-size: 10.5px; font-weight: 400; opacity: 0.8; }
+
+  .specs { display: grid; grid-template-columns: 1.7fr 1fr; gap: 26px; margin-top: 22px; margin-bottom: 22px; }
+  .spec-title { font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; color: var(--accent); margin-bottom: 6px; }
+  .spec-text { font-size: 10px; line-height: 1.6; }
+  .allergen-row + .allergen-row { margin-top: 10px; }
+  .allergen-row strong { font-weight: 600; }
+
+  .theme-lemon {
+    --bg: #fbf0c6;
+    --ink: #3b2f14;
+    --accent: #8a6700;
+    --rule: rgba(138, 103, 0, 0.3);
+    --badge: #f3c83f;
+    --badge-ink: #3b2f14;
+    --focus: 50% 88%;
+  }
+  .theme-maple {
+    --bg: #f6e5cf;
+    --ink: #3a2217;
+    --accent: #a0521c;
+    --rule: rgba(160, 82, 28, 0.3);
+    --badge: #d9873a;
+    --badge-ink: #fff8ef;
+    --focus: 50% 72%;
+  }
+  .theme-milk {
+    --bg: #efe2d2;
+    --ink: #3a2217;
+    --accent: #7b4a2a;
+    --rule: rgba(123, 74, 42, 0.3);
+    --badge: #9c643d;
+    --badge-ink: #fff8ef;
+    --focus: 50% 62%;
+  }
+  .theme-double {
+    --bg: #2b1812;
+    --ink: #f4e6d8;
+    --accent: #e3a867;
+    --rule: rgba(227, 168, 103, 0.35);
+    --badge: #e3a867;
+    --badge-ink: #2b1812;
+    --focus: 50% 78%;
+  }
+  .theme-walnut {
+    --bg: #e9d8bc;
+    --ink: #33220f;
+    --accent: #6e4a26;
+    --rule: rgba(110, 74, 38, 0.3);
+    --badge: #c29260;
+    --badge-ink: #2a1a0c;
+    --focus: 50% 52%;
+  }
+
+  .theme-double .hero { height: 4.55in; }
+
+  /* ---------- About ---------- */
+  .about { background: var(--cream); }
+  .about .topbar { color: var(--rose); }
+  .about-photo { margin-top: 22px; height: 3.9in; border-radius: 26px; overflow: hidden; }
+  .about-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; display: block; }
+  .about-heading { font-family: var(--name-font); font-weight: 600; font-size: 50px; line-height: 1; margin-top: 30px; }
+  .about-heading span { color: var(--rose); }
+  .about-text { font-size: 12px; line-height: 1.75; font-weight: 300; margin-top: 14px; }
+  .about-text + .about-text { margin-top: 8px; }
+
+  .perks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px; }
+  .perk { background: var(--blush); border-radius: 18px; padding: 16px 16px 18px; }
+  .perk svg { width: 26px; height: 26px; color: var(--rose); }
+  .perk-title { font-family: var(--name-font); font-weight: 600; font-size: 20px; line-height: 1.1; margin-top: 8px; }
+  .perk-text { font-size: 9.8px; line-height: 1.6; margin-top: 6px; }
+
+  .tip {
+    margin-top: 16px; margin-bottom: 20px;
+    border: 1.5px dashed var(--rose); border-radius: 14px;
+    padding: 11px 16px; font-size: 10.5px; line-height: 1.55;
+  }
+  .tip strong { font-family: var(--name-font); font-size: 16px; color: var(--rose); margin-right: 6px; }
+
+  /* ---------- Wholesale ---------- */
+  .wholesale { background: var(--blush); }
+  .wholesale .topbar { color: var(--rose); }
+  .ws-heading { font-family: var(--name-font); font-weight: 600; font-size: 54px; line-height: 1; margin-top: 30px; }
+  .ws-heading span { color: var(--rose); }
+
+  .terms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 24px; }
+  .term { background: var(--cream); border-radius: 14px; padding: 12px 14px 13px; }
+  .term-label { font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; color: var(--rose); }
+  .term-value { font-size: 11px; line-height: 1.5; margin-top: 4px; }
+
+  .section-title { font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600; color: var(--rose); margin-top: 24px; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 12px; }
+  .step-num { font-family: var(--name-font); font-weight: 600; font-size: 44px; line-height: 1; color: var(--rose); }
+  .step-title { font-weight: 600; font-size: 12.5px; margin-top: 6px; }
+  .step-text { font-size: 10.3px; line-height: 1.6; margin-top: 4px; }
+
+  .labels {
+    display: flex; align-items: center; gap: 18px; margin-top: 10px;
+    background: var(--cream); border-radius: 18px; padding: 14px 18px;
+  }
+  .label-round { width: 1.3in; height: 1.3in; border-radius: 50%; display: block; }
+  .label-ingredients { height: 1.3in; width: auto; display: block; border-radius: 6px; border: 1px solid #ead8cf; }
+  .labels-text { flex: 1; }
+  .labels-title { font-family: var(--name-font); font-size: 21px; line-height: 1.15; }
+  .labels-note { font-size: 10px; line-height: 1.6; margin-top: 6px; }
+
+  .cta {
+    margin-top: 24px; margin-bottom: 22px;
+    background: var(--cocoa); color: var(--cream);
+    border-radius: 24px; padding: 24px 28px;
+    display: flex; justify-content: space-between; align-items: center; gap: 24px;
+  }
+  .cta-title { font-family: var(--name-font); font-weight: 600; font-size: 34px; line-height: 1.05; }
+  .cta-title span { color: #f2a7bd; }
+  .cta-sub { font-size: 10.5px; margin-top: 8px; opacity: 0.85; line-height: 1.5; }
+  .cta-contacts { display: flex; flex-direction: column; gap: 9px; min-width: 2.7in; }
+  .cta-contacts a { color: inherit; text-decoration: none; font-size: 12px; font-weight: 500; }
+  .cta-contacts span { display: block; font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: #f2a7bd; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="cookie" viewBox="0 0 64 64">
+    <path d="M32 6a26 26 0 1 0 25.6 30.4 7 7 0 0 1-7.6-7.4 7 7 0 0 1-7.5-8.1A7 7 0 0 1 36.4 6.4 26 26 0 0 0 32 6Z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/>
+    <circle cx="22" cy="24" r="3" fill="none" stroke="currentColor" stroke-width="2.4"/>
+    <circle cx="20" cy="40" r="3" fill="none" stroke="currentColor" stroke-width="2.4"/>
+    <circle cx="33" cy="33" r="3" fill="none" stroke="currentColor" stroke-width="2.4"/>
+    <circle cx="36" cy="47" r="3" fill="none" stroke="currentColor" stroke-width="2.4"/>
+    <circle cx="46" cy="39" r="2.6" fill="none" stroke="currentColor" stroke-width="2.4"/>
+  </symbol>
+</svg>
+
+<!-- ============ COVER ============ -->
+<section class="page cover">
+  <div class="topbar">
+    <svg class="logo-mark" viewBox="0 0 200 200" aria-label="Sandra's Bake House">
+      <defs><path id="arc" d="M 24 104 A 76 76 0 0 1 176 104"/></defs>
+      <circle cx="100" cy="100" r="94" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="10 7"/>
+      <text font-family="Cormorant Garamond, serif" font-size="21" font-weight="600" fill="currentColor" letter-spacing="0.5">
+        <textPath href="#arc" startOffset="50%" text-anchor="middle">Sandra's Bake House</textPath>
+      </text>
+      <use href="#cookie" x="72" y="92" width="56" height="56"/>
+    </svg>
+    <span>Wholesale Menu · 2026</span>
+  </div>
+
+  <h1 class="cover-title">Sandra's<span>Bake House</span></h1>
+  <p class="cover-tagline">Big, soft, small-batch NYC-style cookies, hand-crafted in a licensed Edmonton kitchen for local cafés and coffee shops.</p>
+
+  <div class="cover-body">
+    <div class="cover-facts">
+      <div class="fact"><div class="fact-label">The line-up</div><div class="fact-value">5 signature flavours</div></div>
+      <div class="fact"><div class="fact-label">Wholesale</div><div class="fact-value">From $3.00 a cookie</div></div>
+      <div class="fact"><div class="fact-label">Ready to sell</div><div class="fact-value">Individually wrapped &amp; labelled</div></div>
+      <div class="fact"><div class="fact-label">Delivery</div><div class="fact-value">Fresh-frozen, Edmonton area</div></div>
+    </div>
+    <div class="cover-photo"><img src="img/walnut.jpg" alt="Stack of individually wrapped walnut chocolate chip cookies"></div>
+  </div>
+
+  <div class="footer">
+    <a href="https://instagram.com/sandras_bake_house">@sandras_bake_house</a>
+    <a href="mailto:olek.sandrasbakehouse@gmail.com">olek.sandrasbakehouse@gmail.com</a>
+    <a href="tel:+18259776550">+1 825 977 6550</a>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="page about">
+  <div class="topbar">
+    <span>Sandra's Bake House</span>
+    <span>About us</span>
+  </div>
+
+  <div class="about-photo"><img src="img/lineup.jpg" alt="All five flavours individually wrapped on a pink background"></div>
+
+  <h2 class="about-heading">Baked small, <span>loved big.</span></h2>
+  <p class="about-text">Sandra's Bake House makes big, soft, NYC-style cookies for Edmonton cafés and coffee shops. Every batch is mixed, scooped and baked by hand in a licensed commercial kitchen that follows all food safety standards.</p>
+  <p class="about-text">Each cookie weighs around 110–120 g, so it looks generous in your display case and feels like a real treat next to a latte.</p>
+
+  <div class="perks">
+    <div class="perk">
+      <svg viewBox="0 0 64 64"><use href="#cookie"/></svg>
+      <div class="perk-title">Ready to sell</div>
+      <p class="perk-text">Individually wrapped and labelled with full ingredients. Straight from the box to your counter.</p>
+    </div>
+    <div class="perk">
+      <svg viewBox="0 0 64 64"><use href="#cookie"/></svg>
+      <div class="perk-title">Less waste</div>
+      <p class="perk-text">Delivered fresh-frozen. Thaw only what you need, keep the rest in the freezer for up to 2 months.</p>
+    </div>
+    <div class="perk">
+      <svg viewBox="0 0 64 64"><use href="#cookie"/></svg>
+      <div class="perk-title">Proudly local</div>
+      <p class="perk-text">Small-batch and made right here in Edmonton. A local story your customers will love.</p>
+    </div>
+  </div>
+
+  <p class="tip"><strong>Unwrap &amp; warm me up.</strong>A quick warm-up brings back that soft, fresh-from-the-oven feel. Your staff get simple handling and storage instructions with every order.</p>
+
+  <div class="footer">
+    <a href="https://instagram.com/sandras_bake_house">@sandras_bake_house</a>
+    <a href="mailto:olek.sandrasbakehouse@gmail.com">olek.sandrasbakehouse@gmail.com</a>
+    <a href="tel:+18259776550">+1 825 977 6550</a>
+  </div>
+</section>
+
+<!-- ============ MAPLE CINNAMON CRUNCH ============ -->
+<section class="page flavour theme-maple">
+  <div class="topbar">
+    <span>Sandra's Bake House</span>
+    <span>Flavour 01 / 05</span>
+  </div>
+
+  <div class="hero">
+    <div class="hero-photo"><img src="img/maple.jpg" alt="Stack of Maple Cinnamon Crunch cookies with granola topping"></div>
+    <div class="price-badge"><span class="amount">$3.50</span><span class="unit">Wholesale</span></div>
+  </div>
+
+  <h2 class="flavour-name">Maple Cinnamon Crunch</h2>
+  <p class="flavour-tagline">Soft cinnamon dough under a maple glaze, topped with crunchy honey oats. A cozy Canadian autumn morning in one cookie.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-label">Weight</div><div class="stat-value">115–120 g <small>each</small></div></div>
+    <div class="stat"><div class="stat-label">Wholesale</div><div class="stat-value">$3.50 <small>per cookie</small></div></div>
+    <div class="stat"><div class="stat-label">Shelf life</div><div class="stat-value">4 days <small>counter · 2 months frozen</small></div></div>
+  </div>
+
+  <div class="specs">
+    <div>
+      <div class="spec-title">Ingredients</div>
+      <p class="spec-text">Wheat flour, golden yellow sugar, butter, oats, egg, canola oil, honey, cinnamon, maple extract (water, alcohol, natural and artificial flavour, caramel), baking powder (sodium bicarbonate, corn starch, monocalcium phosphate), salt, nutmeg.</p>
+    </div>
+    <div>
+      <div class="spec-title">Allergens</div>
+      <p class="spec-text allergen-row"><strong>Contains:</strong> wheat, milk, egg.</p>
+      <p class="spec-text allergen-row"><strong>May contain:</strong> peanuts, tree nuts, sesame.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://instagram.com/sandras_bake_house">@sandras_bake_house</a>
+    <a href="mailto:olek.sandrasbakehouse@gmail.com">olek.sandrasbakehouse@gmail.com</a>
+    <a href="tel:+18259776550">+1 825 977 6550</a>
+  </div>
+</section>
+
+<!-- ============ LEMON DRIZZLE ============ -->
+<section class="page flavour theme-lemon">
+  <div class="topbar">
+    <span>Sandra's Bake House</span>
+    <span>Flavour 02 / 05</span>
+  </div>
+
+  <div class="hero">
+    <div class="hero-photo"><img src="img/lemon.jpg" alt="Three wrapped Lemon Drizzle cookies stacked"></div>
+    <div class="price-badge"><span class="amount">$3.00</span><span class="unit">Wholesale</span></div>
+  </div>
+
+  <h2 class="flavour-name">Lemon Drizzle</h2>
+  <p class="flavour-tagline">A soft, buttery cookie with real lemon, finished with a sweet lemon glaze. Bright, fresh and made for a sunny afternoon latte.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-label">Weight</div><div class="stat-value">115 g <small>each</small></div></div>
+    <div class="stat"><div class="stat-label">Wholesale</div><div class="stat-value">$3.00 <small>per cookie</small></div></div>
+    <div class="stat"><div class="stat-label">Shelf life</div><div class="stat-value">4 days <small>counter · 2 months frozen</small></div></div>
+  </div>
+
+  <div class="specs">
+    <div>
+      <div class="spec-title">Ingredients</div>
+      <p class="spec-text">Wheat flour, white sugar, butter, egg, canola oil, lemon, baking powder (sodium bicarbonate, corn starch, monocalcium phosphate), salt, yellow food colouring (sorbitol, water, glycerin, sodium carboxymethylcellulose, potassium sorbate, yellow 5).</p>
+    </div>
+    <div>
+      <div class="spec-title">Allergens</div>
+      <p class="spec-text allergen-row"><strong>Contains:</strong> wheat, milk, egg.</p>
+      <p class="spec-text allergen-row"><strong>May contain:</strong> peanuts, tree nuts, sesame.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://instagram.com/sandras_bake_house">@sandras_bake_house</a>
+    <a href="mailto:olek.sandrasbakehouse@gmail.com">olek.sandrasbakehouse@gmail.com</a>
+    <a href="tel:+18259776550">+1 825 977 6550</a>
+  </div>
+</section>
+
+<!-- ============ MILK CHOCOLATE CHIP ============ -->
+<section class="page flavour theme-milk">
+  <div class="topbar">
+    <span>Sandra's Bake House</span>
+    <span>Flavour 03 / 05</span>
+  </div>
+
+  <div class="hero">
+    <div class="hero-photo"><img src="img/milk-choc.jpg" alt="Milk Chocolate Chip cookie broken in half"></div>
+    <div class="price-badge"><span class="amount">$3.75</span><span class="unit">Wholesale</span></div>
+  </div>
+
+  <h2 class="flavour-name">Milk Chocolate Chip</h2>
+  <p class="flavour-tagline">The classic, done NYC-style: thick and golden outside, soft in the middle and loaded with melty milk chocolate.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-label">Weight</div><div class="stat-value">110 g <small>each</small></div></div>
+    <div class="stat"><div class="stat-label">Wholesale</div><div class="stat-value">$3.75 <small>per cookie</small></div></div>
+    <div class="stat"><div class="stat-label">Shelf life</div><div class="stat-value">4 days <small>counter · 2 months frozen</small></div></div>
+  </div>
+
+  <div class="specs">
+    <div>
+      <div class="spec-title">Ingredients</div>
+      <p class="spec-text">Wheat flour, golden yellow sugar, milk chocolate (sugar, milk ingredients, unsweetened chocolate, cocoa, soy lecithin, vanilla extract, ethyl alcohol), butter, canola oil, egg, baking powder (sodium bicarbonate, corn starch, monocalcium phosphate), salt.</p>
+    </div>
+    <div>
+      <div class="spec-title">Allergens</div>
+      <p class="spec-text allergen-row"><strong>Contains:</strong> wheat, milk, egg, soy.</p>
+      <p class="spec-text allergen-row"><strong>May contain:</strong> peanuts, tree nuts, sesame.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://instagram.com/sandras_bake_house">@sandras_bake_house</a>
+    <a href="mailto:olek.sandrasbakehouse@gmail.com">olek.sandrasbakehouse@gmail.com</a>
+    <a href="tel:+18259776550">+1 825 977 6550</a>
+  </div>
+</section>
+
+<!-- ============ DOUBLE CHOCOLATE SALTED CARAMEL ============ -->
+<section class="page flavour theme-double">
+  <div class="topbar">
+    <span>Sandra's Bake House</span>
+    <span>Flavour 04 / 05</span>
+  </div>
+
+  <div class="hero">
+    <div class="hero-photo"><img src="img/double-choc.jpg" alt="Double Chocolate Salted Caramel cookie held next to a glass of milk"></div>
+    <div class="price-badge"><span class="amount">$3.75</span><span class="unit">Wholesale</span></div>
+  </div>
+
+  <h2 class="flavour-name">Double Chocolate Salted Caramel</h2>
+  <p class="flavour-tagline">Rich cocoa dough, semi-sweet chocolate and a gooey salted caramel centre. Made for serious chocolate lovers.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-label">Weight</div><div class="stat-value">110–115 g <small>each</small></div></div>
+    <div class="stat"><div class="stat-label">Wholesale</div><div class="stat-value">$3.75 <small>per cookie</small></div></div>
+    <div class="stat"><div class="stat-label">Shelf life</div><div class="stat-value">4 days <small>counter · 2 months frozen</small></div></div>
+  </div>
+
+  <div class="specs">
+    <div>
+      <div class="spec-title">Ingredients</div>
+      <p class="spec-text">Wheat flour, golden yellow sugar, butter, corn syrup, condensed milk (milk, sugar, lactose), semi-sweet chocolate (sugar, unsweetened chocolate, cocoa butter, milk ingredients, soy lecithin, natural flavour), egg, cocoa powder, baking powder (sodium bicarbonate, corn starch, monocalcium phosphate), salt.</p>
+    </div>
+    <div>
+      <div class="spec-title">Allergens</div>
+      <p class="spec-text allergen-row"><strong>Contains:</strong> wheat, milk, egg, soy.</p>
+      <p class="spec-text allergen-row"><strong>May contain:</strong> peanuts, tree nuts, sesame.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://instagram.com/sandras_bake_house">@sandras_bake_house</a>
+    <a href="mailto:olek.sandrasbakehouse@gmail.com">olek.sandrasbakehouse@gmail.com</a>
+    <a href="tel:+18259776550">+1 825 977 6550</a>
+  </div>
+</section>
+
+<!-- ============ WALNUT CHOCOLATE CHIP ============ -->
+<section class="page flavour theme-walnut">
+  <div class="topbar">
+    <span>Sandra's Bake House</span>
+    <span>Flavour 05 / 05</span>
+  </div>
+
+  <div class="hero">
+    <div class="hero-photo"><img src="img/walnut.jpg" alt="Stack of wrapped Walnut Chocolate Chip cookies"></div>
+    <div class="price-badge"><span class="amount">$3.50</span><span class="unit">Wholesale</span></div>
+  </div>
+
+  <h2 class="flavour-name">Walnut Chocolate Chip</h2>
+  <p class="flavour-tagline">Golden, chewy dough packed with semi-sweet chocolate and crunchy walnuts. A little nutty, a lot satisfying.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-label">Weight</div><div class="stat-value">110 g <small>each</small></div></div>
+    <div class="stat"><div class="stat-label">Wholesale</div><div class="stat-value">$3.50 <small>per cookie</small></div></div>
+    <div class="stat"><div class="stat-label">Shelf life</div><div class="stat-value">4 days <small>counter · 2 months frozen</small></div></div>
+  </div>
+
+  <div class="specs">
+    <div>
+      <div class="spec-title">Ingredients</div>
+      <p class="spec-text">Wheat flour, golden yellow sugar, semi-sweet chocolate (sugar, unsweetened chocolate, cocoa butter, milk ingredients, soy lecithin, natural flavour), walnuts, butter, canola oil, egg, baking powder (sodium bicarbonate, corn starch, monocalcium phosphate), salt.</p>
+    </div>
+    <div>
+      <div class="spec-title">Allergens</div>
+      <p class="spec-text allergen-row"><strong>Contains:</strong> wheat, milk, egg, soy, walnuts.</p>
+      <p class="spec-text allergen-row"><strong>May contain:</strong> peanuts, other tree nuts, sesame.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://instagram.com/sandras_bake_house">@sandras_bake_house</a>
+    <a href="mailto:olek.sandrasbakehouse@gmail.com">olek.sandrasbakehouse@gmail.com</a>
+    <a href="tel:+18259776550">+1 825 977 6550</a>
+  </div>
+</section>
+
+<!-- ============ WHOLESALE & ORDERING ============ -->
+<section class="page wholesale">
+  <div class="topbar">
+    <span>Sandra's Bake House</span>
+    <span>Wholesale info</span>
+  </div>
+
+  <h2 class="ws-heading">Wholesale info <span>&amp; how to order</span></h2>
+
+  <div class="terms">
+    <div class="term"><div class="term-label">Packaging</div><div class="term-value">Individually wrapped and labelled</div></div>
+    <div class="term"><div class="term-label">Supplied</div><div class="term-value">Fresh-frozen for optimum freshness, packed in boxes</div></div>
+    <div class="term"><div class="term-label">Lead time</div><div class="term-value">5–7 days preferred (negotiable)</div></div>
+    <div class="term"><div class="term-label">Minimum order</div><div class="term-value">12 cookies per flavour. Order one flavour or mix and match all five</div></div>
+    <div class="term"><div class="term-label">Storage</div><div class="term-value">Freezer or counter, with clear handling instructions for your staff</div></div>
+    <div class="term"><div class="term-label">Shelf life</div><div class="term-value">4 days on the counter, 2 months in the freezer</div></div>
+    <div class="term"><div class="term-label">Delivery</div><div class="term-value">Edmonton area only, fee depends on location</div></div>
+    <div class="term"><div class="term-label">Pick-up</div><div class="term-value">Available on request</div></div>
+    <div class="term"><div class="term-label">Payment</div><div class="term-value">Invoice or e-Transfer</div></div>
+  </div>
+
+  <div class="section-title">What your customers see</div>
+  <div class="labels">
+    <img class="label-round" src="img/label-round.jpg" alt="Round flavour sticker for the Chocolate Salted Caramel cookie">
+    <img class="label-ingredients" src="img/label-ingredients.jpg" alt="Ingredients label with allergens and contact details">
+    <div class="labels-text">
+      <div class="labels-title">Every cookie arrives ready to sell</div>
+      <p class="labels-note">Flavour sticker on the front, full ingredients and allergens on the back.</p>
+    </div>
+  </div>
+
+  <div class="section-title">Ordering in 3 easy steps</div>
+  <div class="steps">
+    <div>
+      <div class="step-num">1</div>
+      <div class="step-title">Send us a message</div>
+      <p class="step-text">DM us on Instagram or email with your flavours and quantities.</p>
+    </div>
+    <div>
+      <div class="step-num">2</div>
+      <div class="step-title">We confirm</div>
+      <p class="step-text">We agree on a delivery or pick-up date and send your invoice.</p>
+    </div>
+    <div>
+      <div class="step-num">3</div>
+      <div class="step-title">Cookies arrive</div>
+      <p class="step-text">Delivered fresh-frozen and boxed, with storage instructions for your team.</p>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div>
+      <div class="cta-title">Ready to fill <span>your display case?</span></div>
+      <p class="cta-sub">Questions are always welcome. See lots more cookies on our Instagram.</p>
+    </div>
+    <div class="cta-contacts">
+      <a href="https://instagram.com/sandras_bake_house"><span>Instagram</span>@sandras_bake_house</a>
+      <a href="mailto:olek.sandrasbakehouse@gmail.com"><span>Email</span>olek.sandrasbakehouse@gmail.com</a>
+      <a href="tel:+18259776550"><span>Phone</span>+1 825 977 6550</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>Sandra's Bake House · Edmonton, AB</span>
+    <span>Wholesale Menu 2026</span>
+  </div>
+</section>
+
+</body>
+</html>
