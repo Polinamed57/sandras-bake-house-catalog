@@ -12,9 +12,11 @@ Freelance client project, September 2026. Published with the client's permission
 
 ## The problem
 
-The client had built her first catalog in Word. The content was solid, but it looked like a school assignment: five different fonts, six unrelated colours, underlined headings, and ingredient lists that took up more space than the price. The first word a café owner saw when opening the file was "About".
+The client made her first catalog herself in Word. The content was solid: great photos, full ingredients, clear wholesale terms. The layout needed work, though: five different fonts, six unrelated colours, and ingredient lists that took up more space than the price. The first word a café owner saw when opening the file was "About".
 
 For a cold email to a business, the catalog *is* the first impression. It needed to look like it came from a real brand.
+
+![Original version (made by the client in Word) next to the redesign](screenshots/before-after.jpg)
 
 ## My role
 
